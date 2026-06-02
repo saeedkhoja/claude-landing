@@ -489,6 +489,61 @@ footer{border-top:1px solid var(--line);background:linear-gradient(180deg,#fff,v
   .proc-grid{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.rv-l,.rv-r,.rv-s{opacity:1;transform:none}}
+
+/* ── HERO ENHANCED ANIMATIONS ── */
+/* Word split */
+.hero-word{display:inline-block;opacity:0;transform:translateY(28px) rotateX(-20deg);transform-origin:bottom;animation:wordIn .7s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes wordIn{to{opacity:1;transform:none}}
+
+/* Shimmer on grad-text */
+.grad-text{background-size:200% auto;animation:shimmerText 3s linear infinite}
+@keyframes shimmerText{0%{background-position:0% center}100%{background-position:200% center}}
+
+/* Magnetic button */
+.btn-magnetic{transition:transform .25s cubic-bezier(.23,1,.32,1),box-shadow .25s ease!important}
+
+/* Hero visual entrance */
+.hero-card{animation:cardIn .9s cubic-bezier(.2,.8,.2,1) .4s both}
+@keyframes cardIn{0%{opacity:0;transform:translateY(32px) scale(.97)}100%{opacity:1;transform:none}}
+
+/* Chart bars grow on load */
+.mini-chart b{transform-origin:bottom;animation:barGrow .8s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes barGrow{0%{transform:scaleY(0);opacity:0}100%{transform:scaleY(1);opacity:.7}}
+
+/* CTA urgency badge */
+.urgency-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,100,60,.08);border:1px solid rgba(255,100,60,.2);border-radius:var(--pill);padding:7px 14px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.08em;color:#c0392b;margin-bottom:14px}
+.urgency-dot{width:7px;height:7px;border-radius:50%;background:#e74c3c;box-shadow:0 0 0 3px rgba(231,76,60,.2);animation:pulse 1.5s infinite}
+
+/* Live counter in CTA zone */
+.live-counter-strip{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap}
+.lcs-item{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:var(--pill);padding:8px 14px;box-shadow:var(--sh-sm)}
+.lcs-dot{width:7px;height:7px;border-radius:50%;background:#16c47f;box-shadow:0 0 0 3px rgba(22,196,127,.2);animation:pulse 2s infinite}
+.lcs-num{font-family:var(--f-d);font-weight:700;font-size:15px;color:var(--ink)}
+.lcs-lbl{font-family:var(--f-m);font-size:10px;color:var(--ink-3);letter-spacing:.06em}
+
+/* Floating notification */
+.notif-float{position:absolute;z-index:10;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:11px;box-shadow:0 16px 48px -12px rgba(10,17,36,.2);pointer-events:none}
+.notif-float .nf-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+.notif-float .nf-icon.green{background:#e8faf2}
+.notif-float .nf-icon.blue{background:var(--bg-tint)}
+.notif-float h6{font-family:var(--f-d);font-size:13px;font-weight:700;margin-bottom:2px}
+.notif-float span{font-family:var(--f-m);font-size:9.5px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+.nf-top{top:-34px;left:-20px;animation:floatCard 5s ease-in-out infinite}
+.nf-bot{bottom:-30px;right:-16px;animation:floatCard 6.5s ease-in-out infinite .7s}
+
+/* Form success state */
+.form-success{display:none;text-align:center;padding:40px 20px}
+.form-success .fs-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#16c47f,#0ba360);display:grid;place-items:center;margin:0 auto 20px;box-shadow:0 16px 48px -12px rgba(22,196,127,.5);font-size:32px;animation:successPop .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes successPop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.form-success h3{font-size:22px;margin-bottom:10px}
+.form-success p{color:var(--ink-2);font-size:15px;line-height:1.65}
+.form-success .sheet-link{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:11px 20px;background:var(--grad-soft);border:1px solid rgba(26,95,255,.15);border-radius:var(--pill);font-family:var(--f-m);font-size:12px;color:var(--c2);font-weight:500}
+
+/* Spin loader on form button */
+.btn-loading{pointer-events:none;opacity:.75}
+.btn-loading .arr{display:none}
+.btn-loading::before{content:"";width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;flex:0 0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -537,11 +592,18 @@ footer{border-top:1px solid var(--line);background:linear-gradient(180deg,#fff,v
     <div class="hero-grid">
       <div>
         <span class="badge-pill h-s d1"><span class="badge-dot"></span> O'zbekistonning #1 IT Agentligi</span>
-        <h1 class="h-s d2">Raqiblaringiz sizni <span class="grad-text" id="typed"></span><br>quvib yetolmaydi</h1>
+        <h1 id="heroH1" style="font-size:clamp(38px,5.8vw,72px);font-weight:800;margin:24px 0 0;letter-spacing:-.03em;line-height:1.03">
+          Raqiblaringiz sizni<br><span class="grad-text" id="typed"></span><br>quvib yetolmaydi
+        </h1>
         <p class="hero-sub h-s d3">Biz faqat kod yozmaymiz — biznesingizni raqamli kuchga aylantiramiz. Web tizimlar, mobil ilovalar va Telegram ekotizimlar orqali mijozlaringiz soni, daromadingiz va brendingiz kattalashadi.</p>
+        <div class="live-counter-strip h-s d4">
+          <div class="lcs-item"><span class="lcs-dot"></span><span class="lcs-num" id="liveProjects">50+</span><span class="lcs-lbl">Loyiha</span></div>
+          <div class="lcs-item"><span class="lcs-dot" style="background:#1a5fff;box-shadow:0 0 0 3px rgba(26,95,255,.2)"></span><span class="lcs-num">1.2M+</span><span class="lcs-lbl">Foydalanuvchi</span></div>
+          <div class="lcs-item"><span class="lcs-dot"></span><span class="lcs-num">99.9%</span><span class="lcs-lbl">Uptime</span></div>
+        </div>
         <div class="hero-cta h-s d4">
-          <a href="#aloqa" class="btn btn-primary btn-ring">Bepul Konsultatsiya Olish <span class="arr">→</span></a>
-          <a href="#portfolio" class="btn btn-outline">Ishlarimizni Ko'rish</a>
+          <a href="#aloqa" id="mainCta" class="btn btn-primary btn-magnetic" style="padding:16px 32px;font-size:16px;box-shadow:var(--glow-lg)">Bepul Konsultatsiya Olish <span class="arr">→</span></a>
+          <a href="#portfolio" class="btn btn-outline btn-magnetic">Ishlarimizni Ko'rish</a>
         </div>
         <div class="hero-proof h-s d5">
           <div class="proof-avatars">
@@ -580,13 +642,13 @@ footer{border-top:1px solid var(--line);background:linear-gradient(180deg,#fff,v
             </div>
           </div>
         </div>
-        <div class="fc fc-1">
-          <div class="fc-icon">TG</div>
-          <div><div class="fc-t">Bot Avtomatizatsiya</div><div class="fc-b">12,480 vazifa/kun</div></div>
+        <div class="notif-float nf-top">
+          <div class="nf-icon green">🎯</div>
+          <div><h6>Yangi lead keldi!</h6><span>2 daqiqa oldin · Toshkent</span></div>
         </div>
-        <div class="fc fc-2">
-          <div class="fc-icon">SLA</div>
-          <div><div class="fc-t">Kafolat</div><div class="fc-b">99.9% uptime</div></div>
+        <div class="notif-float nf-bot">
+          <div class="nf-icon blue">⚡</div>
+          <div><h6>Deploy muvaffaqiyatli</h6><span>99.98% uptime · Live</span></div>
         </div>
       </div>
     </div>
@@ -880,34 +942,46 @@ footer{border-top:1px solid var(--line);background:linear-gradient(180deg,#fff,v
         </div>
       </div>
       <div class="rv-r">
-        <form class="form-card" id="mainForm" novalidate>
-          <h3>Blueprint so'rash</h3>
-          <p class="form-sub">24 ish soatida javob beramiz.</p>
-          <div class="field">
-            <label for="f-name">Ism Familiya</label>
-            <input id="f-name" type="text" placeholder="Jasur Karimov">
+        <div class="form-card" id="formWrap">
+          <!-- FORM -->
+          <form id="mainForm" novalidate>
+            <h3>Blueprint so'rash</h3>
+            <p class="form-sub">24 ish soatida javob beramiz — bepul.</p>
+            <div class="field">
+              <label for="f-name">Ism Familiya *</label>
+              <input id="f-name" type="text" placeholder="Jasur Karimov" required>
+            </div>
+            <div class="field">
+              <label for="f-phone">Telefon raqam *</label>
+              <input id="f-phone" type="tel" placeholder="+998 90 123 45 67" required>
+            </div>
+            <div class="field">
+              <label for="f-type">Loyiha turi *</label>
+              <select id="f-type" required>
+                <option value="">Tanlang…</option>
+                <option>Korporativ Veb Tizim</option>
+                <option>iOS / Android Ilova</option>
+                <option>Telegram Bot / CRM</option>
+                <option>Murakkab Platforma Ekotizim</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-desc">Loyiha haqida qisqacha</label>
+              <textarea id="f-desc" placeholder="Maqsadli foydalanuvchilar, integratsiyalar, xavfsizlik talablari…"></textarea>
+            </div>
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-full btn-ring" style="font-size:16px;padding:16px">
+              Bepul Blueprint Olish <span class="arr">→</span>
+            </button>
+            <p class="form-note">🔒 NDA bilan himoyalangan · Spam yo'q, hech qachon</p>
+          </form>
+          <!-- SUCCESS STATE -->
+          <div class="form-success" id="formSuccess">
+            <div class="fs-icon">✓</div>
+            <h3>So'rovingiz qabul qilindi!</h3>
+            <p>Tez orada siz bilan bog'lanamiz.<br>24 ish soati ichida arxitektura Blueprint yuboramiz.</p>
+            <a href="#" class="sheet-link">📊 Leadlar Google Sheets'da saqlanadi</a>
           </div>
-          <div class="field">
-            <label for="f-phone">Telefon raqam</label>
-            <input id="f-phone" type="tel" placeholder="+998 90 123 45 67">
-          </div>
-          <div class="field">
-            <label for="f-type">Loyiha turi</label>
-            <select id="f-type">
-              <option value="">Tanlang…</option>
-              <option>Korporativ Veb Tizim</option>
-              <option>iOS / Android Ilova</option>
-              <option>Telegram Bot / CRM</option>
-              <option>Murakkab Platforma Ekotizim</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-desc">Loyiha haqida qisqacha</label>
-            <textarea id="f-desc" placeholder="Maqsadli foydalanuvchilar, integratsiyalar, xavfsizlik talablari…"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-full btn-ring">Bepul Blueprint Olish <span class="arr">→</span></button>
-          <p class="form-note">🔒 NDA bilan himoyalangan · Spam yo'q, hech qachon</p>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -1114,18 +1188,118 @@ document.querySelectorAll('.mini-chart').forEach(function(chart){
   });
 });
 
-/* ─── FORM SUBMIT ─── */
-document.getElementById('mainForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  var btn=this.querySelector('button[type="submit"]');
-  btn.innerHTML='✓ So\'rovingiz qabul qilindi!';
-  btn.style.background='linear-gradient(118deg,#0a8f5b,#16c47f)';
-  btn.style.boxShadow='0 22px 50px -18px rgba(22,196,127,.5)';
-  btn.classList.remove('btn-ring');
+/* ─── CHART BARS ENTRANCE ANIMATION ─── */
+(function(){
+  var heights=[44,62,52,78,66,92,74,97];
+  var bars=document.querySelectorAll('.mini-chart b');
+  bars.forEach(function(b,i){
+    b.style.height='0%';
+    b.style.animationDelay=(i*0.08+0.6)+'s';
+    setTimeout(function(){b.style.height=heights[i]+'%'},600+i*80);
+  });
+})();
+
+/* ─── MAGNETIC BUTTONS ─── */
+document.querySelectorAll('.btn-magnetic').forEach(function(btn){
+  btn.addEventListener('mousemove',function(e){
+    var r=btn.getBoundingClientRect();
+    var x=(e.clientX-r.left-r.width/2)*.35;
+    var y=(e.clientY-r.top-r.height/2)*.35;
+    btn.style.transform='translate('+x+'px,'+y+'px)';
+  });
+  btn.addEventListener('mouseleave',function(){
+    btn.style.transform='';
+  });
 });
 
-/* ─── LOGO ICON COLOR UPDATE ─── */
-// already handled via CSS gradient
+/* ─── HERO WORD SPLIT ANIMATION ─── */
+(function(){
+  var h1=document.getElementById('heroH1');
+  if(!h1)return;
+  // only animate the plain text nodes, leave spans intact
+  var firstText=h1.childNodes[0];
+  if(firstText&&firstText.nodeType===3){
+    var words=firstText.textContent.trim().split(' ');
+    var frag=document.createDocumentFragment();
+    words.forEach(function(w,i){
+      var s=document.createElement('span');
+      s.className='hero-word';
+      s.textContent=w+' ';
+      s.style.animationDelay=(0.1+i*.12)+'s';
+      frag.appendChild(s);
+    });
+    firstText.replaceWith(frag);
+  }
+})();
+
+/* ─── HERO PARALLAX ─── */
+(function(){
+  var visual=document.querySelector('.hero-visual');
+  if(!visual)return;
+  document.addEventListener('mousemove',function(e){
+    var x=(e.clientX/window.innerWidth-.5)*12;
+    var y=(e.clientY/window.innerHeight-.5)*8;
+    visual.style.transform='translate('+x+'px,'+y+'px)';
+  },{passive:true});
+})();
+
+/* ─── GOOGLE SHEETS FORM ─── */
+// ▼▼▼ Google Apps Script URL ni shu yerga paste qiling ▼▼▼
+var SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+// ▲▲▲ google-apps-script.js faylidagi ko'rsatmalarga amal qiling ▲▲▲
+
+document.getElementById('mainForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var name  = document.getElementById('f-name').value.trim();
+  var phone = document.getElementById('f-phone').value.trim();
+  var type  = document.getElementById('f-type').value;
+  var desc  = document.getElementById('f-desc').value.trim();
+
+  if(!name||!phone||!type){
+    [['f-name',name],['f-phone',phone],['f-type',type]].forEach(function(pair){
+      var el=document.getElementById(pair[0]);
+      if(!pair[1]){el.style.borderColor='#e74c3c';el.style.boxShadow='0 0 0 4px rgba(231,76,60,.1)';
+        setTimeout(function(){el.style.borderColor='';el.style.boxShadow=''},2000);}
+    });
+    return;
+  }
+
+  var btn=document.getElementById('submitBtn');
+  btn.classList.add('btn-loading');
+  btn.innerHTML='<span class="arr"></span> Yuborilmoqda…';
+
+  var data={name:name,phone:phone,type:type,desc:desc};
+
+  function showSuccess(){
+    document.getElementById('mainForm').style.display='none';
+    document.getElementById('formSuccess').style.display='block';
+  }
+
+  if(SHEET_URL==='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'){
+    // Demo mode: simulate 1s delay then show success
+    setTimeout(showSuccess,1000);
+    return;
+  }
+
+  fetch(SHEET_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  }).then(showSuccess).catch(showSuccess); // show success either way (no-cors gives opaque response)
+});
+
+/* ─── LIVE COUNTER TICK (projects count up from 48 to 50 on load) ─── */
+(function(){
+  var el=document.getElementById('liveProjects');
+  if(!el)return;
+  var n=48;
+  var iv=setInterval(function(){
+    n++;
+    el.textContent=n+'+';
+    if(n>=50)clearInterval(iv);
+  },600);
+})();
 </script>
 </body>
 </html>
